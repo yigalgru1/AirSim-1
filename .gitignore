@@ -417,3 +417,5 @@ Unity/UnityDemo/Assets/Plugins/AirsimWrapper.dll.meta
 Unity/UnityDemo/Assets/Scenes/DroneDemo.unity
 Unity/UnityDemo/Assets/Plugins/AirsimWrapper.dll.meta
 Unity/UnityDemo/Assets/Scenes/DroneDemo.unity
+/Unity/UnityDemo/Assets/*.meta
+/Unity/UnityDemo/Assets/Plugins/*.meta
