@@ -718,6 +718,26 @@ def load_image(airsim_client):
     return image64
 
 
+
+
+@app.route('/fov', methods=['GET', 'POST'])
+def fov():
+    if request.method == "POST":
+        import sys
+        sys.path.insert(1, '../icd_multirotor')
+        thread = Thread(target=fov_operation)
+        thread.start()
+        respons = {"success": True, "message": ""}
+        return jsonify(respons)
+
+
+def fov_operation():
+    import fov
+    from fov import Fov
+    _task = Fov(unitypot)
+    _task.start()
+
+
 # ========================================================================== #
 # ############################# Socket.io ################################## #
 # ========================================================================== #

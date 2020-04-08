@@ -99,6 +99,20 @@
                        });
             });
             $(function () {
+            $("#fovbtn").click(function (event) {
+                var action = { "action": 0};
+                 $.ajax({
+                       type : 'POST',
+                       url : "fov",
+                       contentType: "application/json",
+                       data: JSON.stringify (action),
+                       dataType: 'json'
+                       });
+                       });
+            });
+            
+
+            $(function () {
              $("#moveToPositionbtn").click(function (event) {
                  var variableX = document.getElementById('textX').value;
                  var variableY = document.getElementById('textY').value;

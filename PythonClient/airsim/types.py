@@ -508,9 +508,9 @@ class MeshPositionVertexBuffersResponse(MsgpackMixin):
 
 
 class MultirotorFovCoordinateState(MsgpackMixin):
-    position1 = GeoPoint()
-    position2 = GeoPoint()    
-    position3 = GeoPoint()    
-    position4 = GeoPoint()    
+    fov1_location = GeoPoint()
+    fov2_location = GeoPoint()    
+    fov3_location = GeoPoint()    
+    fov4_location = GeoPoint()    
     
     
