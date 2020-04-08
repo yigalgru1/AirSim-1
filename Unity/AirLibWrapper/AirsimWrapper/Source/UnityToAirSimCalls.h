@@ -4,6 +4,7 @@
 #include "UnityUtilities.hpp"
 #include "SimHUD/SimHUD.h"
 #include "Logger.h"
+#include "common/common_utils/Utils.hpp"
 
 #ifdef _WIN32
 	#define EXPORT __declspec(dllexport)
@@ -58,3 +59,29 @@ extern "C" EXPORT void InvokeCollisionDetection(AirSimUnity::AirSimCollisionInfo
 		}
 	}
 }
+
+
+
+
+
+extern "C" EXPORT  void  ConvertNetToGeo(msr::airlib::Vector3r rectpoints[4], msr::airlib::GeoPoint geoPoints[4])
+{
+	int i = 0;
+	msr::airlib::Vector3r	vPoint1 = rectpoints[0];
+	msr::airlib::Vector3r	vPoint2 = rectpoints[1];
+	msr::airlib::Vector3r	vPoint3 = rectpoints[2];
+	msr::airlib::Vector3r	vPoint4 = rectpoints[3];
+	
+	msr::airlib::GeoPoint geo1 = msr::airlib::EarthUtils::nedToGeodetic(vPoint1, msr::airlib::AirSimSettings::singleton().origin_geopoint);
+	msr::airlib::GeoPoint geo2 = msr::airlib::EarthUtils::nedToGeodetic(vPoint2, msr::airlib::AirSimSettings::singleton().origin_geopoint);
+	msr::airlib::GeoPoint geo3 = msr::airlib::EarthUtils::nedToGeodetic(vPoint3, msr::airlib::AirSimSettings::singleton().origin_geopoint);
+	msr::airlib::GeoPoint geo4 = msr::airlib::EarthUtils::nedToGeodetic(vPoint4, msr::airlib::AirSimSettings::singleton().origin_geopoint);
+
+	geoPoints[0] = geo1;
+	geoPoints[1] = geo2;
+	geoPoints[2] = geo3;
+	geoPoints[3] = geo4;
+
+}
+
+

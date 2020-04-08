@@ -25,7 +25,7 @@ print(unitypot)
 print("complit read config file")
 
 app = Flask(__name__)
-socketio = SocketIO(app, ping_timeout=100, ping_interval=100)
+socketio = SocketIO(app, ping_timeout=100, ping_interval=100, cors_allowed_origins="*")
 
 
 hot_point_ned_coordinate = []
@@ -147,7 +147,7 @@ def land_operation():
     from land import Land
     _task = Land(unitypot)
 
-    time.sleep(1)
+    time.sleep(10)
     _task.start()
     global is_armed
     is_armed = False
@@ -465,9 +465,16 @@ def gimbalSet():
         yaw = data['yaw']
         pitch = data['pitch']
         roll = data['roll']
-        rotation = [yaw, pitch, roll]
+        #rotation = [yaw, pitch, roll]
         msg = "rotation is missing"
-        if rotation:
+        if data:
+
+            pitch= np.deg2rad(pitch)
+            yaw= np.deg2rad(yaw)
+            roll= np.deg2rad(roll)
+
+            rotation = [yaw,pitch,roll]            
+
             import sys
             sys.path.insert(1, '../icd_multirotor')
 
@@ -556,6 +563,43 @@ def sendTelemetry_action_operation(id, stop):
         socketio.emit('my', data, broadcast=True)
         time.sleep(1)
 
+#   WebSocket -> start !
+# ========================================================================== #
+
+
+def sendImage_action_operation(id, stop):
+    global air_sim2
+    air_sim2 = init_airsim()
+    while True:
+        if stop():
+            print("  Exiting loop.")
+            air_sim2.armDisarm(False)
+            air_sim2.reset()
+            air_sim2.enableApiControl(False)
+            print('STOP send images')
+            break
+        data = load_image(air_sim2)
+        print('send image')
+        socketio.emit('image', data, broadcast=True)
+        time.sleep(0.1)
+
+
+def sendTelemetry_action_operation(id, stop):
+    global air_sim
+    air_sim = init_airsim()
+
+    while True:
+        if stop():
+            print("  Exiting loop.")
+            air_sim.armDisarm(False)
+            air_sim.reset()
+            air_sim.enableApiControl(False)
+            print('STOP send telemetry')
+            break
+        data = load_airsim(air_sim)
+        print('send telemetry')
+        socketio.emit('my', data, broadcast=True)
+        time.sleep(1)
 
 
  ##combine websockets
@@ -640,9 +684,17 @@ def load_airsim(airsim_client):
     # pitch, roll, yaw = airsim.to_eularian_angles(
     #     rpcinfo.kinematics_estimated.orientation)
 
+    drone_pitch, drone_roll, drone_yaw = airsim.to_eularian_angles(kinematics_estimated.orientation)
+
     global camInfo
     camInfo = airsim_client.simGetCameraInfo("0")
     pitch, roll, yaw = airsim.to_eularian_angles(camInfo.pose.orientation)
+
+    #to degrees:
+    pitch = np.rad2deg(pitch)
+    roll = np.rad2deg(roll)
+    yaw = -1*(np.rad2deg(yaw))
+
     homepoint = airsim_client.getHomeGeoPoint()
     global way_point_status
     global initialize_height
@@ -663,7 +715,7 @@ def load_airsim(airsim_client):
         },
         "height_above_takeoff": height_above_takeoff,
         "gps_health": 5,
-        "heading": math.degrees(yaw),
+        "heading": math.degrees(drone_yaw),
         "velocity": {
             "x": kinematics_estimated.linear_velocity.x_val,
             "y": kinematics_estimated.linear_velocity.y_val,
