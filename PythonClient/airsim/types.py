@@ -505,3 +505,12 @@ class MeshPositionVertexBuffersResponse(MsgpackMixin):
     vertices = 0.0
     indices = 0.0
     name = ''
+
+
+class MultirotorFovCoordinateState(MsgpackMixin):
+    position1 = GeoPoint()
+    position2 = GeoPoint()    
+    position3 = GeoPoint()    
+    position4 = GeoPoint()    
+    
+    

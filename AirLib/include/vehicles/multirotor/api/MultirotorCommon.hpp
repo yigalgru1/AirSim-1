@@ -100,5 +100,22 @@ struct MultirotorState {
     }
 };
 
+struct MultirotorFovCoordinateState {
+  
+    GeoPoint fov1_location;
+    GeoPoint fov2_location;
+    GeoPoint fov3_location;
+    GeoPoint fov4_location;
+
+    MultirotorFovCoordinateState()
+    {}
+    MultirotorFovCoordinateState(const GeoPoint& fov1_location_val, const GeoPoint& fov2_location_val, const GeoPoint& fov3_location_val, const GeoPoint& fov4_location_val)
+        : fov1_location(fov1_location_val), fov2_location(fov2_location_val), fov3_location(fov3_location_val), fov4_location(fov4_location_val)
+    {
+    }
+
+  
+};
+
 }} //namespace
 #endif

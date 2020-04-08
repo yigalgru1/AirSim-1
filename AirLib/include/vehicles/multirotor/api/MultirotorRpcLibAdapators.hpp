@@ -76,6 +76,39 @@ public:
                 gps_location.to(), timestamp, landed_state, rc_data.to(), ready, ready_message, can_arm);
         }
     };
+
+
+    struct MultirotorFovCoordinateState {
+
+        GeoPoint fov1_location;
+        GeoPoint fov2_location;
+        GeoPoint fov3_location;
+        GeoPoint fov4_location;
+       
+        MSGPACK_DEFINE_MAP(fov1_location, fov2_location, fov3_location, fov4_location);
+
+        MultirotorFovCoordinateState()
+        {
+
+        }
+
+        MultirotorFovCoordinateState(const msr::airlib::MultirotorFovCoordinateState& s)
+        {
+            fov1_location = s.fov1_location;
+            fov2_location = s.fov2_location;
+            fov3_location = s.fov3_location;
+            fov4_location = s.fov4_location;
+        }
+
+        msr::airlib::MultirotorFovCoordinateState to() const
+        {
+            return msr::airlib::MultirotorFovCoordinateState(fov1_location.to(), fov2_location.to(),
+                fov3_location.to(), fov4_location.to());
+        }
+
+
+    };
+
 };
 
 }} //namespace

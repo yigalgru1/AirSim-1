@@ -136,6 +136,19 @@ public: //these APIs uses above low level APIs
         return state;
     }
 
+
+    /************************* high level FOV status APIs *********************************/
+    MultirotorFovCoordinateState getMultirotorFovCoordinateState() const
+    {
+        MultirotorFovCoordinateState state;
+        state.fov1_location = GeoPoint(0.0, 0.0, 0.0);
+        state.fov2_location = GeoPoint(0.0, 0.0, 0.0);
+        state.fov3_location = GeoPoint(0.0, 0.0, 0.0);
+        state.fov4_location = GeoPoint(0.0, 0.0, 0.0);
+        return state;
+    }
+
+
     /******************* Task management Apis ********************/
     virtual void cancelLastTask() override
     {

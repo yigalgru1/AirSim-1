@@ -636,6 +636,12 @@ class MultirotorClient(VehicleClient, object):
     getMultirotorState.__annotations__ = {'return': MultirotorState}
 
 
+
+  # query vehicle fov Coordinates
+    def getMultirotorFovCoordinateState(self, vehicle_name = ''):
+        return MultirotorFovCoordinateState.from_msgpack(self.client.call('getMultirotorFovCoordinateState', vehicle_name))
+    getMultirotorFovCoordinateState.__annotations__ = {'return': MultirotorFovCoordinateState}
+
 # -----------------------------------  Car APIs ---------------------------------------------
 class CarClient(VehicleClient, object):
     def __init__(self, ip = "", port = 41451, timeout_value = 3600):

@@ -219,6 +219,14 @@ MultirotorState MultirotorRpcLibClient::getMultirotorState(const std::string& ve
         as<MultirotorRpcLibAdapators::MultirotorState>().to();
 }
 
+
+MultirotorFovCoordinateState MultirotorRpcLibClient::getMultirotorFovCoordinateState(const std::string& vehicle_name)
+{
+    return static_cast<rpc::client*>(getClient())->call("getMultirotorFovCoordinateState", vehicle_name).
+        as<MultirotorRpcLibAdapators::MultirotorFovCoordinateState>().to();
+}
+
+
 void MultirotorRpcLibClient::moveByRC(const RCData& rc_data, const std::string& vehicle_name)
 {
     static_cast<rpc::client*>(getClient())->call("moveByRC", MultirotorRpcLibAdapators::RCData(rc_data), vehicle_name);
