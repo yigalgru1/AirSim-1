@@ -490,3 +490,7 @@ Unity/UnityDemo/Assets/ExternalDll/rtaNetworking.Streaming.pdb.meta
 Unity/UnityDemo/Assets/ExternalDll/rtaNetworking.Streaming.dll.mdb.meta
 Unity/UnityDemo/Assets/ExternalDll/rtaNetworking.Streaming.dll.meta
 /Unity/UnityDemo/LightBuild
+
+# docs
+docs/README.md
+build_docs/
