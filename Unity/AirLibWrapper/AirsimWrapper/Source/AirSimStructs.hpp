@@ -219,4 +219,7 @@ namespace AirSimUnity
 		bool isHit = false;
 		float distance = 0.0f;
 	};
+
+
+
 }

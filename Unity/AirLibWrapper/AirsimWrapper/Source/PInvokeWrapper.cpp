@@ -21,6 +21,7 @@ bool(*Reset)(const char* vehicleName);
 AirSimVector(*GetVelocity)(const char* vehicleName);
 RayCastHitResult(*GetRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName);
 bool(*Pause)(const char* vehicleName, float timeScale);
+bool(*GetCameraFovPosition)(const char* vehicleName);
 
 void InitVehicleManager(
 	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* vehicleName),
@@ -42,7 +43,8 @@ void InitVehicleManager(
 	bool(*reset)(const char* vehicleName),
 	AirSimVector(*getVelocity)(const char* vehicleName),
 	RayCastHitResult(*getRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName),
-	bool(*pause)(const char* vehicleName, float timeScale)
+	bool(*pause)(const char* vehicleName, float timeScale),
+	bool(*getCameraFovPosition)(const char* vehicleName)
 )
 {
 	SetPose = setPose;
@@ -65,4 +67,5 @@ void InitVehicleManager(
 	GetVelocity = getVelocity;
 	GetRayCastHit = getRayCastHit;
 	Pause = pause;
+	GetCameraFovPosition = getCameraFovPosition;
 }

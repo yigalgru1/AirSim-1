@@ -566,42 +566,6 @@ def sendTelemetry_action_operation(id, stop):
 #   WebSocket -> start !
 # ========================================================================== #
 
-
-def sendImage_action_operation(id, stop):
-    global air_sim2
-    air_sim2 = init_airsim()
-    while True:
-        if stop():
-            print("  Exiting loop.")
-            air_sim2.armDisarm(False)
-            air_sim2.reset()
-            air_sim2.enableApiControl(False)
-            print('STOP send images')
-            break
-        data = load_image(air_sim2)
-        print('send image')
-        socketio.emit('image', data, broadcast=True)
-        time.sleep(0.1)
-
-
-def sendTelemetry_action_operation(id, stop):
-    global air_sim
-    air_sim = init_airsim()
-
-    while True:
-        if stop():
-            print("  Exiting loop.")
-            air_sim.armDisarm(False)
-            air_sim.reset()
-            air_sim.enableApiControl(False)
-            print('STOP send telemetry')
-            break
-        data = load_airsim(air_sim)
-        print('send telemetry')
-        socketio.emit('my', data, broadcast=True)
-        time.sleep(1)
-
-
  ##combine websockets
  # 
  # def sendTelemetry_action_operation(id, stop):
